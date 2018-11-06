@@ -53,3 +53,27 @@ const update = (Comp) => {
   reactInternalUpdate(Comp)
 }
 ```
+
+## Life cycle methods
+
+```jsx
+const useMount = fn => {
+  useEffect(() => {fn()}, [])
+}
+
+const useUnmount = fn => {
+  useEffect(() => fn, [])
+}
+
+const useUpdate = fn => {
+  const mounting = useRef(true)
+
+  useEffect(() => {
+    if (mounting.current) {
+      mounting.current = false
+    } else {
+      fn()
+    }
+  })
+}
+```
